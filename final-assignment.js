@@ -138,30 +138,23 @@ console.log(
 
 console.log(`You have ${matchingTalks.length} talk(s) in your watch list.`);
 
-let filterReply =
-  input
-    .question("Would you like to remove any talks from your list?")
-    .toLowerCase() === "yes"; //
+let filterReply = input.question("Would you like to remove any talks from your list?").toLowerCase() === "yes"; //
 let formatTalkList = []; // this is setting up an empty array to be accessed for the conditional statement if the user replies yes
 
 // this for loop creates a new string with the titles appearing in the array as before, but with a number that preceeds it so the user can input that number to identify their chosen title.
-for (i = 0; i < talkList.length; i++) {
-  let orderedNum = i + 1;
-  let newTalkString = `${orderedNum}. ${talkList[i]}`;
-  formatTalkList.push(newTalkString);
+for (i = 0; i < talkList.length; i++) { // for loop iterates through the elements (or titles) in the array
+  let orderedNum = i + 1; // variable to give the number of each title so it starts with #1 and not the index of 0
+  let newTalkString = `${orderedNum}. ${talkList[i]}`; // changes the element of the original string in the array so that the string now includes a number so the user can reference it.
+  formatTalkList.push(newTalkString); // pushes the new string into the empty array previously made.
 }
 
 // this conditional statement takes the Boolean input from the question and will run if the user had indicated that they wanted to remove a title from the list.
 
-if (filterReply) {
-  let ordinalNumTalkToRemove = Number(
-    input.question(
-      `Please indicate the number of the Talk you would like to remove: from the list here: ${formatTalkList}`
-    )
-  );
+if (filterReply) { //if the user wants to eliminate a talk, this code will execute.
+  let ordinalNumTalkToRemove = Number(input.question(`Please indicate the number of the Talk you would like to remove: from the list here: ${formatTalkList}`)); // after the user indicates they want to remove a talk, this prompts the user to select which Talk to eliminate by the reference number concatenated as part of the string.
   let indexNumTalkToRemove = ordinalNumTalkToRemove - 1; // This adjusts the math so the number appearing on the list will now be recalibrated to match the actual index number of the title in the array.
   formatTalkList.splice(indexNumTalkToRemove, 1); // This removes the indexed element and only that element from the formatted list.
-  console.log(`Here is your updated list: ${formatTalkList}.`);
-} else {
+  console.log(`Here is your updated list: ${formatTalkList}.`); // shows list with removed talk.
+} else { // if the user did not want to eliminate a talk, it confirms this choice.
   console.log("Okay, your list remains as-is without change.  Enjoy.");
 } // If the user did not want to remove any titles, this part of the code will be executed.
